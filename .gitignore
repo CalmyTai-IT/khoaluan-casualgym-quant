@@ -1,0 +1,9 @@
+__pycache__/
+.ipynb_checkpoints/
+outputs/
+kaggle_working/
+*.pt
+*.bin
+*.safetensors
+*.zip
+.env

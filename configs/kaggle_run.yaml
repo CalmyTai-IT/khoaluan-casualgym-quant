@@ -1,0 +1,47 @@
+# configs/kaggle_run.yaml — "chạy gì" cho lần Save Version tiếp theo.
+# Quy trình: sửa file này -> commit -> push -> Kaggle runner -> Save Version -> Save & Run All.
+# Mỗi job chạy một notebook trong notebooks/ bằng papermill; "params" ghi đè ô parameters của notebook.
+# OUT_DIR và REPO_DIR do runner tự đặt, không ghi ở đây.
+
+run_name: g0_smoke          # tên ngắn; thư mục kết quả là outputs/<ngày giờ>_<run_name>
+stop_on_error: true         # true: một job lỗi thì bỏ các job sau
+pip: []                     # gói cài thêm nếu cần, ví dụ ["datasets>=3"]
+
+jobs:
+  # 1) Smoke test: chạy đủ mọi đường ống nhưng nhỏ, để bắt lỗi trước khi tốn quota.
+  - name: g0_smoke_410m
+    enabled: true
+    notebook: notebooks/00_g0_pilot.ipynb
+    params:
+      MODEL: EleutherAI/pythia-410m
+      TASK: agr_sv_num_subj-relc
+      MAX_TRAIN: 40
+      MAX_EVAL: 32
+      LAYERS: [6, 12]
+      BITS: [8, 4]
+      ALPHAS: [0.5]
+      RELEARN_BITS: [4]
+      SEEDS: 2
+      SKIP_STEP0: false
+
+  # 2) G0 đầy đủ trên 410M. Bật sau khi smoke OK.
+  - name: g0_full_410m
+    enabled: false
+    notebook: notebooks/00_g0_pilot.ipynb
+    params:
+      MODEL: EleutherAI/pythia-410m
+      TASK: agr_sv_num_subj-relc
+
+  # 3) Đo thời gian cho 1B. Bật cùng lúc với job 2.
+  - name: g0_timing_1b
+    enabled: false
+    notebook: notebooks/00_g0_pilot.ipynb
+    params:
+      MODEL: EleutherAI/pythia-1b
+      TASK: agr_sv_num_subj-relc
+      LAYERS: [8]
+      BITS: [4]
+      ALPHAS: []
+      RELEARN_BITS: []
+      SEEDS: 1
+      SKIP_STEP0: true
