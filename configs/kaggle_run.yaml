@@ -3,46 +3,44 @@
 # Mỗi job chạy một notebook trong notebooks/ bằng papermill; "params" ghi đè ô parameters của notebook.
 # OUT_DIR và REPO_DIR do runner tự đặt, không ghi ở đây.
 #
-# Bản 12/11/2026 (lần 2): chạy G0b bằng notebooks/00_g0_pilot.ipynb bản 2.
-# Notebook bản 2 không nhận tham số bản 1 (BITS, ALPHAS, ALPHA_BITS, RELEARN_BITS, SPLIT_BITS): job sẽ dừng với ValueError.
-# Cấu hình G0 cũ nằm ở commit 1232ff0 nếu cần xem lại.
+# Bản 13/11/2026: G1 (RQ0, tái lập CausalGym) bằng notebooks/01_tai_lap_causalgym.ipynb.
+# 4 tác vụ và tiêu chí G1 theo sổ dự án D-13 (phải được nhóm xác nhận trước khi chạy).
+# Cấu hình G0b nằm ở commit b22a2a4 nếu cần xem lại.
+# Ước thời gian: smoke khoảng 3 phút; 410m khoảng 3 giờ; 1b khoảng 3,5-4 giờ [PHỎNG ĐOÁN, suy từ t của G0/G0b].
+# MAX_HOURS: quá số giờ này thì job dừng trước tác vụ kế tiếp, kết quả các tác vụ đã xong vẫn giữ.
 
-run_name: g0b               # thư mục kết quả là outputs/<ngày giờ>_g0b
-stop_on_error: true         # smoke lỗi thì bỏ job full, đỡ tốn quota
+run_name: g1                # thư mục kết quả là outputs/<ngày giờ>_g1
+stop_on_error: true         # smoke lỗi thì bỏ các job sau, đỡ tốn quota
 pip: []                     # gói cài thêm nếu cần, ví dụ ["datasets>=3"]
 
 jobs:
-  # 1) Smoke: chạy mọi đường ống của bản 2 nhưng rất nhỏ (khoảng 2-3 phút). Chỉ để bắt lỗi code trước job full.
-  - name: g0b_smoke_410m
+  # 1) Smoke: cả 4 tác vụ, dữ liệu rất nhỏ, 2 layer. Bắt lỗi tải dữ liệu (split test, loại câu) và lỗi code.
+  - name: g1_smoke_410m
     enabled: true
-    notebook: notebooks/00_g0_pilot.ipynb
+    notebook: notebooks/01_tai_lap_causalgym.ipynb
     params:
       MODEL: EleutherAI/pythia-410m
-      TASK: agr_sv_num_subj-relc
+      TASKS: ["agr_sv_num_subj-relc", "npi_any_subj-relc", "filler_gap_subj", "cleft"]
       MAX_TRAIN: 40
-      MAX_EVAL: 32
-      LAYERS: [6, 12, 17]
-      REGIONS: "all"
-      QCONFIGS: [[4, 1.0], [2, 0.5]]
-      RELEARN_CONFIGS: [[4, 1.0]]
-      SPLIT_CONFIGS: [[4, 1.0]]
-      SEEDS: 2
-      N_BOOT: 200
-      SKIP_STEP0: true
+      MAX_EVAL: 20
+      LAYERS: [6, 23]
+      SAVE_DIRS: false
+      MAX_HOURS: 0.5
 
-  # 2) G0b đầy đủ trên 410M: bản đồ mọi layer x mọi vùng, ô chính theo D-08, lưới nén quanh vùng chuyển tiếp 4 -> 3 -> 2 bit.
-  - name: g0b_full_410m
+  # 2) G1 đầy đủ trên 410m: mọi layer x mọi vùng, 9 phương pháp, tác vụ gốc + dog-give, split test.
+  - name: g1_410m
     enabled: true
-    notebook: notebooks/00_g0_pilot.ipynb
+    notebook: notebooks/01_tai_lap_causalgym.ipynb
     params:
       MODEL: EleutherAI/pythia-410m
-      TASK: agr_sv_num_subj-relc
-      LAYERS: "all"
-      REGIONS: "all"
-      MAIN_RULE: "last_early"
-      MAIN_FRAC: 0.8
-      QCONFIGS: [[8, 1.0], [4, 1.0], [3, 0.5], [3, 0.75], [3, 1.0], [2, 0.25], [2, 0.5], [2, 0.75], [2, 1.0]]
-      RELEARN_CONFIGS: [[4, 1.0], [3, 1.0], [2, 0.5]]
-      SPLIT_CONFIGS: [[4, 1.0], [3, 1.0]]
-      SEEDS: 5
-      SKIP_STEP0: false
+      TASKS: ["agr_sv_num_subj-relc", "npi_any_subj-relc", "filler_gap_subj", "cleft"]
+      MAX_HOURS: 4.0
+
+  # 3) G1 đầy đủ trên 1b (fp32; repo gốc chạy 1b ở bfloat16, khác biệt ghi trong sổ).
+  - name: g1_1b
+    enabled: true
+    notebook: notebooks/01_tai_lap_causalgym.ipynb
+    params:
+      MODEL: EleutherAI/pythia-1b
+      TASKS: ["agr_sv_num_subj-relc", "npi_any_subj-relc", "filler_gap_subj", "cleft"]
+      MAX_HOURS: 4.5

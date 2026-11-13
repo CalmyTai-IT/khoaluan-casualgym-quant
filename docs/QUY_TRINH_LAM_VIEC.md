@@ -1,6 +1,6 @@
 # QUY_TRINH_LAM_VIEC.md — Quy trình làm việc (GitHub → Kaggle, notebook, phiên chat)
 
-> Bản 12/11/2026 (lần 2). **Người dùng được thêm, sửa, xoá bất kỳ quy tắc nào.** Claude luôn theo bản mới nhất có trong project hoặc được gửi trong phiên. Khi một yêu cầu trong chat trái với file này, Claude làm theo chat nhưng phải nhắc để cập nhật file.
+> Bản 13/11/2026. **Người dùng được thêm, sửa, xoá bất kỳ quy tắc nào.** Claude luôn theo bản mới nhất có trong project hoặc được gửi trong phiên. Khi một yêu cầu trong chat trái với file này, Claude làm theo chat nhưng phải nhắc để cập nhật file.
 > Mỗi quy tắc có mã (QT-xx) để dễ trỏ tới. Quy tắc bị xoá thì bỏ luôn mã, không đánh lại số.
 
 ## A. Luồng code: máy → GitHub → Kaggle
@@ -27,8 +27,8 @@
 
   Cách làm: import notebook thí nghiệm (không phải runner) vào Kaggle, bật GPU và Internet, sửa ô `parameters`, chạy từng ô. **Xong thì Stop session** để không tốn quota. Sửa gì thì chép ngược về repo (QT-01).
 - **QT-12** Trước mỗi lần chạy dài, chạy job smoke tương ứng trước. Có thể đặt smoke và job dài trong cùng một version, smoke đứng trước, với `stop_on_error: true`.
-- **QT-13** Mỗi version ghi một dòng vào nhật ký GPU (sổ dự án §6): ngày, tài khoản, run_id, số phút (lấy từ `run_summary.json`).
-- **QT-14** Một version không nên dài quá khoảng 9 giờ (phiên Kaggle tối đa 12 giờ). Việc dài hơn thì chia thành nhiều job hoặc nhiều version.
+- **QT-13** Mỗi version có một dòng trong nhật ký GPU (sổ dự án §6): ngày, tài khoản, run_id, số phút (lấy từ `run_summary.json`). **Claude ghi dòng này** khi người dùng gửi zip của run; người dùng chỉ cần nói run chạy bằng tài khoản nào nếu khác lần trước.
+- **QT-14** Một version không nên dài quá khoảng 9 giờ (phiên Kaggle tối đa 12 giờ). Việc dài hơn thì chia thành nhiều job hoặc nhiều version; notebook dài có tham số `MAX_HOURS` để tự dừng giữa các tác vụ.
 
 ## C. Notebook
 
@@ -42,17 +42,13 @@
 
 ## D. Kết quả
 
-- **QT-30** Sau mỗi version, **trước khi mở phiên chat mới**:
-  1. tải `<run_id>.zip` ở tab Output;
-  2. giải nén vào `results/<run_id>/` trong repo, sao cho `results/<run_id>/run_summary.json` nằm ngay trong thư mục đó (không lồng thêm một cấp);
-  3. commit `[<cổng>] kết quả <run_id>`, push.
-
-  Chỉ commit file nhỏ (jsonl, csv, json, executed.ipynb); không commit trọng số model.
-- **QT-31** Mang kết quả vào phiên chat bằng cách đính kèm **nguyên file zip** của run cùng `docs/VIEC_CAN_LAM.md`. Làm sau QT-30.
+- **QT-30** Sau mỗi version: tải `<run_id>.zip` ở tab Output, rồi đính kèm vào phiên chat mới (QT-40). **Không cần tự giải nén vào repo:** Claude đưa `results/<run_id>/` vào zip trả về cuối phiên, đúng cấu trúc, nên chỉ giải nén một lần vào gốc repo và commit một lần. Chỉ commit file nhỏ (jsonl, csv, json, npz nhỏ, executed.ipynb); không commit trọng số model.
+- **QT-31** Claude kiểm zip ngay đầu phiên: `run_summary.json`, trạng thái từng job, `data_check`. Job lỗi thì Claude đọc `executed.ipynb` của job đó trước khi làm gì khác.
+- **QT-32** Mọi con số Claude ghi vào sổ phải tái tạo được từ file trong repo: hoặc đọc thẳng từ `results/<run_id>/`, hoặc in ra bởi một notebook phân tích chạy trên CPU (ví dụ `notebooks/00b_phan_tich_g0b.ipynb`).
 
 ## E. Phiên chat với Claude
 
-- **QT-40** Đầu phiên mới: đính kèm `docs/VIEC_CAN_LAM.md` hiện tại và kết quả mới (nếu có).
+- **QT-40** Đầu phiên mới: đính kèm `docs/VIEC_CAN_LAM.md` hiện tại và zip kết quả mới (nếu có).
 - **QT-41** Cuối mỗi phiên có thay đổi, Claude viết lại `docs/VIEC_CAN_LAM.md` theo định dạng cố định:
   - **Đầu file** có hai phần:
     - "Đang ở đâu": 2–4 dòng gồm kết quả mới nhất, cổng đang nhắm, hạn;
@@ -65,16 +61,22 @@
     - *Nếu không:* cách xử lý;
     - *Ra:* đầu ra, và bước nào dùng nó.
   - Chỗ phải dừng để hỏi Claude hoặc chờ nhóm quyết định thì ghi **DỪNG**, và nói rõ mang gì vào phiên chat.
-  - Bước lưu kết quả vào repo (QT-30) luôn đứng **trước** bước mở phiên chat mới.
+  - **Không có bước bắt người dùng điền số liệu, nhật ký GPU hay sổ** (QT-44).
   - Có bảng file (đường dẫn, THAY/THÊM, đổi gì), nêu thay đổi trong `kaggle_run.yaml`, ước giờ GPU, và kết quả cần mang về.
   - Việc không cần GPU để ở mục riêng cuối file. Mỗi việc ghi người làm, hạn, và đầu ra dùng vào đâu.
-- **QT-42** Cuối phiên, Claude nhắc cập nhật sổ dự án (version, changelog, trạng thái cổng, việc cần làm, nhật ký GPU). Claude không tự nhận đã lưu gì vào repo hay Kaggle.
+- **QT-42** Cuối phiên, Claude **tự cập nhật** sổ dự án (version, changelog, trạng thái cổng, việc cần làm, nhật ký GPU, bảng run, sổ nguồn) và đề xuất nếu có quyết định đổi thiết kế; đưa bản mới vào zip và ghi lên Claude Project khi có công cụ. Claude không tự nhận đã lưu gì vào repo hay Kaggle.
 - **QT-43** Khi người dùng nói đang vội: trả lời ngắn, đưa việc cần làm trước, lý do sau.
+- **QT-44** Việc cập nhật nào Claude làm được thì Claude làm, không chuyển cho người dùng: điền số từ file kết quả, nhật ký GPU, bảng run, trạng thái cổng, changelog, sổ nguồn, cập nhật đề xuất. Người dùng chỉ làm phần Claude không làm được: chép file vào repo, commit/push, chạy Kaggle, và quyết định khoa học của nhóm.
 
 ## Lịch sử thay đổi quy trình
 
+- 13/11/2026:
+  - Thêm QT-44: Claude tự làm mọi việc cập nhật làm được; QT-13, QT-41, QT-42 sửa theo. Lý do: người dùng yêu cầu; điền tay mất thời gian và dễ sai (dòng G0b trong sổ v0.3 ghi "0.5" và gộp hai job vào cùng một ô).
+  - QT-30, QT-31 đổi: người dùng chỉ đính kèm zip của run; Claude đưa `results/<run_id>/` vào zip trả về. Bớt một lần giải nén và một lần commit cho mỗi run.
+  - Thêm QT-32: số trong sổ phải tái tạo được từ file trong repo.
+  - QT-14: nhắc tham số `MAX_HOURS`.
 - 12/11/2026 (lần 2):
-  - QT-41 cố định định dạng `VIEC_CAN_LAM.md` theo bước thời gian, mỗi bước có Cần có / Làm / Xong khi / Nếu không / Ra. Lý do: bản trước gom theo mục nên không rõ thứ tự, và không rõ đầu ra của bước trước dùng cho bước sau; bước lưu kết quả vào repo bị bỏ sót.
+  - QT-41 cố định định dạng `VIEC_CAN_LAM.md` theo bước thời gian, mỗi bước có Cần có / Làm / Xong khi / Nếu không / Ra.
   - QT-30 và QT-31: lưu kết quả vào repo trước khi mở phiên chat; đính kèm nguyên zip.
   - QT-02: nhiều file thì đóng gói zip đúng cấu trúc repo.
   - QT-12: cho phép smoke và job dài trong cùng một version.
