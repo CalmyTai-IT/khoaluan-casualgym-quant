@@ -88,6 +88,7 @@ Kaggle tính quota theo thời gian phiên. Ghi mỗi lần chạy để biết 
 | Ngày | Tài khoản | Việc | Model | Giờ GPU | Ghi chú |
 |---|---|---|---|---|---|
 | 12/11/2026 | TV-A | `20261112_1441_g0_full` (G0 full + timing 1B) | 410M, 1B | 0,09 | 2 job: 4,2 + 1,3 phút |
+| 12/11/2026 | TV-B | `20261113_0506_g0b` (G0b) | 410M | 0.5 | 2 job: 1,7 + 28,7 phút |
 
 ## 7. Câu hỏi gửi GVHD
 
@@ -148,6 +149,8 @@ Kaggle tính quota theo thời gian phiên. Ghi mỗi lần chạy để biết 
 | (smoke bản 1, chưa ghi) | | g0_smoke_410m | | |
 | 20261112_1441_g0_full | 1232ff0 | g0_full_410m | ok | 4,2 |
 | 20261112_1441_g0_full | 1232ff0 | g0_timing_1b | ok | 1,3 |
+| 20261113_0506_g0b | b22a2a4 | g0b_smoke_410m / g0b_full_410m | ok | 1,7 |
+| 20261113_0506_g0b | b22a2a4 | g0b_smoke_410m / g0b_full_410m | ok | 28,7 |
 
 **Kết quả G0 full** (tác vụ `agr_sv_num_subj-relc`, split validation: 100 cặp = 50 cặp độc lập × 2 chiều; T4, fp32, torch 2.11, transformers 5.20.2):
 

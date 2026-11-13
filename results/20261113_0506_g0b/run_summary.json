@@ -1,0 +1,132 @@
+{
+  "run_id": "20261113_0506_g0b",
+  "commit": "b22a2a4 | [G0b] notebook 00 bản 2 + config G0b + sổ v0.3 | 2026-11-13 12:01:03 +0700",
+  "run_config": "configs/kaggle_run.yaml",
+  "jobs": [
+    {
+      "name": "g0b_smoke_410m",
+      "notebook": "notebooks/00_g0_pilot.ipynb",
+      "status": "ok",
+      "params": {
+        "MODEL": "EleutherAI/pythia-410m",
+        "TASK": "agr_sv_num_subj-relc",
+        "MAX_TRAIN": 40,
+        "MAX_EVAL": 32,
+        "LAYERS": [
+          6,
+          12,
+          17
+        ],
+        "REGIONS": "all",
+        "QCONFIGS": [
+          [
+            4,
+            1.0
+          ],
+          [
+            2,
+            0.5
+          ]
+        ],
+        "RELEARN_CONFIGS": [
+          [
+            4,
+            1.0
+          ]
+        ],
+        "SPLIT_CONFIGS": [
+          [
+            4,
+            1.0
+          ]
+        ],
+        "SEEDS": 2,
+        "N_BOOT": 200,
+        "SKIP_STEP0": true,
+        "OUT_DIR": "/kaggle/working/outputs/20261113_0506_g0b/g0b_smoke_410m",
+        "REPO_DIR": "/tmp/repo"
+      },
+      "minutes": 1.7
+    },
+    {
+      "name": "g0b_full_410m",
+      "notebook": "notebooks/00_g0_pilot.ipynb",
+      "status": "ok",
+      "params": {
+        "MODEL": "EleutherAI/pythia-410m",
+        "TASK": "agr_sv_num_subj-relc",
+        "LAYERS": "all",
+        "REGIONS": "all",
+        "MAIN_RULE": "last_early",
+        "MAIN_FRAC": 0.8,
+        "QCONFIGS": [
+          [
+            8,
+            1.0
+          ],
+          [
+            4,
+            1.0
+          ],
+          [
+            3,
+            0.5
+          ],
+          [
+            3,
+            0.75
+          ],
+          [
+            3,
+            1.0
+          ],
+          [
+            2,
+            0.25
+          ],
+          [
+            2,
+            0.5
+          ],
+          [
+            2,
+            0.75
+          ],
+          [
+            2,
+            1.0
+          ]
+        ],
+        "RELEARN_CONFIGS": [
+          [
+            4,
+            1.0
+          ],
+          [
+            3,
+            1.0
+          ],
+          [
+            2,
+            0.5
+          ]
+        ],
+        "SPLIT_CONFIGS": [
+          [
+            4,
+            1.0
+          ],
+          [
+            3,
+            1.0
+          ]
+        ],
+        "SEEDS": 5,
+        "SKIP_STEP0": false,
+        "OUT_DIR": "/kaggle/working/outputs/20261113_0506_g0b/g0b_full_410m",
+        "REPO_DIR": "/tmp/repo"
+      },
+      "minutes": 28.7
+    }
+  ]
+}
