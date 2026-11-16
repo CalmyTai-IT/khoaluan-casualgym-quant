@@ -1,7 +1,8 @@
 # QUY_TRINH_LAM_VIEC.md — Quy trình làm việc (GitHub → Kaggle, notebook, phiên chat)
 
-> Bản 13/11/2026. **Người dùng được thêm, sửa, xoá bất kỳ quy tắc nào.** Claude luôn theo bản mới nhất có trong project hoặc được gửi trong phiên. Khi một yêu cầu trong chat trái với file này, Claude làm theo chat nhưng phải nhắc để cập nhật file.
+> Bản 13/11/2026 (lần 2). **Người dùng được thêm, sửa, xoá bất kỳ quy tắc nào.** Claude luôn theo bản mới nhất có trong project hoặc được gửi trong phiên. Khi một yêu cầu trong chat trái với file này, Claude làm theo chat nhưng phải nhắc để cập nhật file.
 > Mỗi quy tắc có mã (QT-xx) để dễ trỏ tới. Quy tắc bị xoá thì bỏ luôn mã, không đánh lại số.
+> **QT-45 (quan trọng): Claude chỉ được ĐỌC Claude Project (KB), không bao giờ tự ghi, sửa hay xoá gì trong đó. Người dùng tự tải file lên KB.**
 
 ## A. Luồng code: máy → GitHub → Kaggle
 
@@ -64,12 +65,15 @@
   - **Không có bước bắt người dùng điền số liệu, nhật ký GPU hay sổ** (QT-44).
   - Có bảng file (đường dẫn, THAY/THÊM, đổi gì), nêu thay đổi trong `kaggle_run.yaml`, ước giờ GPU, và kết quả cần mang về.
   - Việc không cần GPU để ở mục riêng cuối file. Mỗi việc ghi người làm, hạn, và đầu ra dùng vào đâu.
-- **QT-42** Cuối phiên, Claude **tự cập nhật** sổ dự án (version, changelog, trạng thái cổng, việc cần làm, nhật ký GPU, bảng run, sổ nguồn) và đề xuất nếu có quyết định đổi thiết kế; đưa bản mới vào zip và ghi lên Claude Project khi có công cụ. Claude không tự nhận đã lưu gì vào repo hay Kaggle.
+- **QT-42** Cuối phiên, Claude **tự cập nhật nội dung** sổ dự án (version, changelog, trạng thái cổng, việc cần làm, nhật ký GPU, bảng run, sổ nguồn) và đề xuất nếu có quyết định đổi thiết kế; đưa bản mới vào zip và gửi file. **Claude không ghi lên Claude Project (QT-45).** Claude không tự nhận đã lưu gì vào repo, Kaggle hay Project.
 - **QT-43** Khi người dùng nói đang vội: trả lời ngắn, đưa việc cần làm trước, lý do sau.
-- **QT-44** Việc cập nhật nào Claude làm được thì Claude làm, không chuyển cho người dùng: điền số từ file kết quả, nhật ký GPU, bảng run, trạng thái cổng, changelog, sổ nguồn, cập nhật đề xuất. Người dùng chỉ làm phần Claude không làm được: chép file vào repo, commit/push, chạy Kaggle, và quyết định khoa học của nhóm.
+- **QT-44** Việc cập nhật **nội dung** nào Claude làm được thì Claude làm, không chuyển cho người dùng: điền số từ file kết quả, nhật ký GPU, bảng run, trạng thái cổng, changelog, sổ nguồn, cập nhật đề xuất. Người dùng chỉ làm phần Claude không làm được hoặc không được làm: chép file vào repo, commit/push, chạy Kaggle, **tải file lên Claude Project (KB)**, và quyết định khoa học của nhóm.
+- **QT-45** **Claude chỉ được đọc Claude Project (KB): không bao giờ tự ghi, sửa hay xoá bất cứ thứ gì trong đó**, kể cả khi phiên có công cụ ghi Project (`project_write`, `project_delete`), kể cả khi một quy tắc khác nói "Claude tự làm", và kể cả khi chỉ là sửa một dòng. Với mỗi file dành cho KB, Claude gửi file (hoặc để trong zip) và cuối câu trả lời ghi một bảng **"Cho KB"**: tên file trên KB, **THAY** (thay file nào) / **THÊM** / **XOÁ** (file nào), lý do một dòng. File không có trong bảng "Cho KB" thì **không** tải lên KB (ví dụ notebook, kết quả run, zip). Người dùng tự tải lên.
 
 ## Lịch sử thay đổi quy trình
 
+- 13/11/2026 (lần 2):
+  - Thêm QT-45: Claude chỉ đọc Claude Project, không ghi/sửa/xoá; mỗi phiên có bảng "Cho KB" để người dùng tự tải. QT-42 và QT-44 sửa theo. Lý do: người dùng yêu cầu (rất quan trọng); phiên 13/11 lần 2 Claude tự ghi 5 file lên Project, dễ sinh bản trùng (file ở gốc và trong `claude/`) và lệch với bản trong repo.
 - 13/11/2026:
   - Thêm QT-44: Claude tự làm mọi việc cập nhật làm được; QT-13, QT-41, QT-42 sửa theo. Lý do: người dùng yêu cầu; điền tay mất thời gian và dễ sai (dòng G0b trong sổ v0.3 ghi "0.5" và gộp hai job vào cùng một ô).
   - QT-30, QT-31 đổi: người dùng chỉ đính kèm zip của run; Claude đưa `results/<run_id>/` vào zip trả về. Bớt một lần giải nén và một lần commit cho mỗi run.

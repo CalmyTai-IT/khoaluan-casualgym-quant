@@ -1,0 +1,46 @@
+# configs/kaggle_run.yaml — "chạy gì" cho lần Save Version tiếp theo.
+# Quy trình: sửa file này -> commit -> push -> Kaggle runner -> Save Version -> Save & Run All.
+# Mỗi job chạy một notebook trong notebooks/ bằng papermill; "params" ghi đè ô parameters của notebook.
+# OUT_DIR và REPO_DIR do runner tự đặt, không ghi ở đây.
+#
+# Bản 13/11/2026: G1 (RQ0, tái lập CausalGym) bằng notebooks/01_tai_lap_causalgym.ipynb.
+# 4 tác vụ và tiêu chí G1 theo sổ dự án D-13 (phải được nhóm xác nhận trước khi chạy).
+# Cấu hình G0b nằm ở commit b22a2a4 nếu cần xem lại.
+# Ước thời gian: smoke khoảng 3 phút; 410m khoảng 3 giờ; 1b khoảng 3,5-4 giờ [PHỎNG ĐOÁN, suy từ t của G0/G0b].
+# MAX_HOURS: quá số giờ này thì job dừng trước tác vụ kế tiếp, kết quả các tác vụ đã xong vẫn giữ.
+
+run_name: g1                # thư mục kết quả là outputs/<ngày giờ>_g1
+stop_on_error: true         # smoke lỗi thì bỏ các job sau, đỡ tốn quota
+pip: []                     # gói cài thêm nếu cần, ví dụ ["datasets>=3"]
+
+jobs:
+  # 1) Smoke: cả 4 tác vụ, dữ liệu rất nhỏ, 2 layer. Bắt lỗi tải dữ liệu (split test, loại câu) và lỗi code.
+  - name: g1_smoke_410m
+    enabled: true
+    notebook: notebooks/01_tai_lap_causalgym.ipynb
+    params:
+      MODEL: EleutherAI/pythia-410m
+      TASKS: ["agr_sv_num_subj-relc", "npi_any_subj-relc", "filler_gap_subj", "cleft"]
+      MAX_TRAIN: 40
+      MAX_EVAL: 20
+      LAYERS: [6, 23]
+      SAVE_DIRS: false
+      MAX_HOURS: 0.5
+
+  # 2) G1 đầy đủ trên 410m: mọi layer x mọi vùng, 9 phương pháp, tác vụ gốc + dog-give, split test.
+  - name: g1_410m
+    enabled: true
+    notebook: notebooks/01_tai_lap_causalgym.ipynb
+    params:
+      MODEL: EleutherAI/pythia-410m
+      TASKS: ["agr_sv_num_subj-relc", "npi_any_subj-relc", "filler_gap_subj", "cleft"]
+      MAX_HOURS: 4.0
+
+  # 3) G1 đầy đủ trên 1b (fp32; repo gốc chạy 1b ở bfloat16, khác biệt ghi trong sổ).
+  - name: g1_1b
+    enabled: true
+    notebook: notebooks/01_tai_lap_causalgym.ipynb
+    params:
+      MODEL: EleutherAI/pythia-1b
+      TASKS: ["agr_sv_num_subj-relc", "npi_any_subj-relc", "filler_gap_subj", "cleft"]
+      MAX_HOURS: 4.5
