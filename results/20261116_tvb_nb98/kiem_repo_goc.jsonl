@@ -1,0 +1,13 @@
+{"buoc": "repo", "commit": "0f3129ff3b6c5c8264892f30a25be25150ae9179", "tokenizer": "EleutherAI/pythia-70m", "vocab": 50277}
+{"buoc": "diem10_so_hf", "task": "agr_sv_num_subj-relc", "test_vs_seed1_n_hf": 100, "test_vs_seed1_n_trung": 100, "validation_vs_seed1_n_hf": 100, "validation_vs_seed1_n_trung": 0, "validation_vs_seed420_n_hf": 100, "validation_vs_seed420_n_trung": 100, "ket_luan": "test HF = tập eval seed 1 của bài"}
+{"buoc": "diem10_so_hf", "task": "npi_any_subj-relc", "test_vs_seed1_n_hf": 100, "test_vs_seed1_n_trung": 100, "validation_vs_seed1_n_hf": 100, "validation_vs_seed1_n_trung": 0, "validation_vs_seed420_n_hf": 100, "validation_vs_seed420_n_trung": 100, "ket_luan": "test HF = tập eval seed 1 của bài"}
+{"buoc": "diem10_so_hf", "task": "filler_gap_subj", "test_vs_seed1_n_hf": 100, "test_vs_seed1_n_trung": 100, "validation_vs_seed1_n_hf": 100, "validation_vs_seed1_n_trung": 0, "validation_vs_seed420_n_hf": 100, "validation_vs_seed420_n_trung": 100, "ket_luan": "test HF = tập eval seed 1 của bài"}
+{"buoc": "diem10_so_hf", "task": "cleft", "test_vs_seed1_n_hf": 100, "test_vs_seed1_n_trung": 100, "validation_vs_seed1_n_hf": 100, "validation_vs_seed1_n_trung": 2, "validation_vs_seed420_n_hf": 100, "validation_vs_seed420_n_trung": 100, "ket_luan": "test HF = tập eval seed 1 của bài"}
+{"buoc": "diem9_ty_le_lech", "task": "agr_sv_num_subj-relc", "n_cap": 100, "ty_le_cap_co_lech": 0.16, "ty_le_lech_theo_vung": {"1:{subject}": 0.16, "2:_that": 0.16, "3:{verbed}": 0.16, "4:_the": 0.16, "5:{object}": 0.16}}
+{"buoc": "diem9_ty_le_lech", "task": "npi_any_subj-relc", "n_cap": 100, "ty_le_cap_co_lech": 0.0, "ty_le_lech_theo_vung": {"1:{det1}": 0.0, "2:{np}": 0.0, "3:_that": 0.0, "4:{rc_verb}": 0.0, "5:{det2}": 0.0, "6:{rc_obj}": 0.0, "7:_has": 0.0, "8:{matrix_v}": 0.0}}
+{"buoc": "diem9_ty_le_lech", "task": "filler_gap_subj", "n_cap": 100, "ty_le_cap_co_lech": 0.0, "ty_le_lech_theo_vung": {"2:{gap}": 0.0, "3:_the": 0.0, "4:{np1}": 0.0, "5:{clause.verb}": 0.0, "6:_the": 0.0, "7:{clause.obj}": 0.0, "8:{clause.pp}": 0.0}}
+{"buoc": "diem9_ty_le_lech", "task": "cleft", "n_cap": 100, "ty_le_cap_co_lech": 0.08, "ty_le_lech_theo_vung": {"2:{verb}": 0.08, "3:_was": 0.08}}
+{"buoc": "diem8_tok_mismatch", "task": "agr_sv_num_subj-relc", "n_cau": 200, "n_lech": 0}
+{"buoc": "diem8_tok_mismatch", "task": "npi_any_subj-relc", "n_cau": 200, "n_lech": 0}
+{"buoc": "diem8_tok_mismatch", "task": "filler_gap_subj", "n_cau": 200, "n_lech": 0}
+{"buoc": "diem8_tok_mismatch", "task": "cleft", "n_cau": 200, "n_lech": 0}

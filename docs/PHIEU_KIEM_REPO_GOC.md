@@ -1,4 +1,4 @@
-# PHIEU_KIEM_REPO_GOC.md — Phiếu kiểm độc lập repo gốc CausalGym
+ # PHIEU_KIEM_REPO_GOC.md — Phiếu kiểm độc lập repo gốc CausalGym
 
 > Bản 13/11/2026 (Claude soạn). Người kiểm: **TV-B**. Hạn: 16/11/2026.
 > Repo: `aryamanarora/causalgym`, commit `0f3129ff3b6c5c8264892f30a25be25150ae9179` (`0f3129f`, 30/11/2024). Link trong phiếu đều ghim đúng commit này.
@@ -77,23 +77,23 @@ Gốc link: `https://github.com/aryamanarora/causalgym/blob/0f3129ff3b6c5c826489
 
 | # | Khớp / Khác / Chưa rõ | Bằng chứng (file:dòng, trích một dòng) | Chạy thử (notebook 98) | Ghi chú |
 |---|---|---|---|---|
-| 1 | | | — | |
-| 2 | | | — | |
-| 3 | | | — | |
-| 4 | | | — | |
-| 5 | | | — | |
-| 6 | | | — | |
-| 7 | | | — | |
-| 8 | | | ô 5 | |
-| 9 | | | ô 4, ô 6 | |
-| 10 | | | ô 3 | |
-| 11 | | | — | |
-| 12 | | | — | |
-| A | | | — | |
-| B | | | — | |
-| C | | | — | |
-| D | | | — | |
-| E | | | — | |
+| 1 | Khớp | `eval.py:42` `base_probs = F.log_softmax(base_logits[:, -1], dim=-1)` và `eval.py:72` `(base_probs[y_base] - base_probs[y_src]) + (interv_probs[y_src] - interv_probs[y_base])` | — | Các `p` là `log_softmax`; `odds` là trung bình trên mọi cặp (kể cả cặp đảo); hiệu hai `log_softmax` trong cùng phân phối bằng hiệu hai logit. |
+| 2 | Khớp | `train.py:75` `loss = calculate_loss(interv_outputs.logits, batch.src_labels)` và `eval.py:12` `F.cross_entropy(logits[:, -1], labels)` | — | Nhãn trong loss là `src_labels`; chỉ tính ở token cuối `logits[:, -1]`. |
+| 3 | Khớp | `data.py:175` `self.sentence = ["<\|endoftext\|>" + self.sentence[0]] + self.sentence[1:]` | — | Nối chuỗi `"<\|endoftext\|>"` vào trước phần tử đầu tiên của template. |
+| 4 | Khớp | `data.py:301` `for _ in range(batch_size // 2):` và `data.py:335` `pairs += [x.swap() for x in pairs]` | — | Batch cỡ 4 gồm 2 cặp lấy mẫu gốc và 2 cặp đảo (`swap`) của chúng. |
+| 5 | Khớp | `data.py:240` `random.choice(...)` và `data.py:257` `base_label = random.choice(self.labels[base_type])` | — | Hai lệnh `random.choice` không dùng chung chỉ số; nhãn `base` `" is"` có thể đi với `src` `" have"`. |
+| 6 | Khớp | `data.py:305` `if ''.join(pair.base) in discard: continue` và `data.py:335` `pairs += [x.swap() for x in pairs]` | — | Chỉ kiểm `pair.base` trước khi thêm cặp đảo `swap()`, nên `pair.src` (thành `base` của cặp đảo) có thể trùng với tập train. |
+| 7 | Khớp | `plot.py:322` `df['selectivity'] = df['odds'] - df['odds_control']` và `plot.py:328` `df.groupby(['model', 'dataset', 'method', 'layer']).max()` | — | Selectivity là `max` theo vị trí của `(odds − odds dog-give)` ở mỗi layer (tính hiệu ở dòng 322 rồi mới `.max()` ở dòng 328). |
+| 8 | Khớp | `data.py:49` `tokens = tokenizer.tokenize(''.join(sentence))` và `data.py:63` `region_tokens = [tokenizer.tokenize(x) for x in sentence]` | **ô 5 (`diem8_tok_mismatch`):** Tokenizer `EleutherAI/pythia-70m` (`vocab=50277`): cả 4 tác vụ (`agr_sv_num_subj-relc`, `npi_any_subj-relc`, `filler_gap_subj`, `cleft`) đều có `n_cau = 200`, `n_lech = 0` (0/800 câu lệch). | Token hoá cả câu nhưng vị trí từng vùng tính từ `tokenizer.tokenize(vùng)`. |
+| 9 | Khớp | `data.py:140` `ret = [rets_src, rets_base]` và `eval.py:30` `unit_locations={"sources->base": ([None, pos_interv[1]], [pos_interv[0], pos_interv[1]])}` | **ô 4 (`diem9_ty_le_lech`, `n_cap=100`):** `agr_sv_num_subj-relc`: `0.16` (mọi vùng 1..5 đều `0.16`); `cleft`: `0.08` (`2:{verb}`: `0.08`, `3:_was`: `0.08`); `npi_any_subj-relc`: `0.0` (vùng 1..8 đều `0.0`); `filler_gap_subj`: `0.0` (vùng 2..8 đều `0.0`). **ô 6 (`diem9_pyvene`):** `p_base = 3` (`['Ġcat']`), `p_src = 6` (`['Ġhipp', 'opot', 'am', 'uses']`); `repo_lech_voi_gt_p_base = 0.0`, `repo_lech_voi_gt_p_src = 0.8061596155166626`; `sua_lech_voi_gt_p_base = 0.8061596155166626`, `sua_lech_voi_gt_p_src = 0.0` (repo đọc source ở vị trí base; bản sửa đọc đúng vị trí src). | Trong `pyvene 0.1.6` (`intervenable_base.py:1669-1670`), tuple `"sources->base"` là `(vị trí ở source, vị trí ở base)`. DAS/vanilla (đơn vị 1) đọc `source` ở `pos_interv[1]` (vị trí `base`), ghi vào `base` ở `pos_interv[1]`; Collect (đơn vị 0) đọc `base` ở `pos_interv[0]` (vị trí `src`). Lỗi vô hại khi `base` và `src` cùng số token. |
+| 10 | Khớp | `das.py:79` `eval_seed = 420 if hparam_non_das else 1` và `data.py:390-398` (train `seed=42`, dev `seed=420`, test `seed=1`) | **ô 3 (`diem10_so_hf`, `n_hf=100`):** Cả 4 tác vụ đều có `test_vs_seed1_n_trung = 100/100`, `validation_vs_seed420_n_trung = 100/100`, `validation_vs_seed1_n_trung = 0/100` (riêng `cleft` là `2/100`). Kết luận: `test` HF = tập eval `seed 1` của bài. | Khi không bật `--hparam_non_das`, `eval_seed = 1`; số batch và cỡ batch (`100 × 4` train, `25 × 4` eval) giống hàm xuất HF; mỗi tác vụ trong `syntaxgym.json` chỉ có 1 template nên không lệch nhau. |
+| 11 | Khớp | `utils.py:31-32` `"EleutherAI/pythia-410m": torch.float32, "EleutherAI/pythia-1b": torch.bfloat16` | — | Khi chạy `test_all.py` trên GPU, `410m` nạp ở `float32`, `1b` nạp ở `bfloat16`. |
+| 12 | Khớp | `diff_methods.py:59` `LogisticRegression(penalty="l2", solver="saga", C=c, max_iter=1000)` và `data.py:324` `if base_type == self.types[0]: base_label = " dog"` | — | `types[0]` (khoá đầu của `labels` trong `syntaxgym.json`): `agr_sv_num_subj-relc` là `"singular"`, `npi_any_subj-relc` là `"neg"`, `filler_gap_subj` là `"gap"` (khoá đầu), `cleft` là `"normal"`. |
+| A | Khớp | `das.py:78-79` `for batch in trainset: for pair in batch.pairs: discard.add(''.join(pair.base))` | — | `batch.pairs` đã chứa cặp đảo nên `discard` gồm cả câu `base` và `src` của `trainset`; câu `base` của cặp eval gốc được kiểm với cả hai, câu `src` không được kiểm. |
+| B | Khớp | `train.py:98` `"step": step` (DAS) / `"step": -1` (phương pháp khác) và `plot.py:146-149` | — | Bảng tổng hợp lọc theo bước eval cuối (`step == 99` khi `steps = 100`) cho DAS và `step == -1` cho vanilla cùng các phương pháp khác. |
+| C | Khớp | `train.py:25-32` `Adam(..., lr=lr)` + `get_linear_schedule_with_warmup(..., int(0.1 * total_steps), total_steps)` và `test_all.py:80` `lr=5e-3` | — | Cùng lịch học với `notebook 01` của nhóm (Adam, `lr = 5e-3`, warmup tuyến tính 10% số bước rồi giảm tuyến tính về 0 qua 100 batch). |
+| D | Khớp | `plot.py:316-331` (pivot/merge với control `dog-give` rồi gọi `.dropna()`) | — | Đúng; phương pháp nào thiếu lượt chạy `dog-give` sẽ bị `.dropna()` loại khỏi bảng tổng hợp, mất cả cột `odds`. |
+| E | Khớp | `test_all.py:56` `WEIGHTS.get(model, torch.bfloat16)` và `das.py:62` `WEIGHTS.get(model, torch.float16)` | — | Mặc định fallback khác nhau giữa hai file nhưng không ảnh hưởng `410m` và `1b` vì cả hai đều có trong `WEIGHTS`. |
 
 ## 5. Nếu có điểm "Khác"
 

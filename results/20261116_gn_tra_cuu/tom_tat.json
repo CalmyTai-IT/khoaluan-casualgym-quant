@@ -1,0 +1,188 @@
+{
+ "ngay_chay_utc": "2026-11-16 08:05",
+ "toy": false,
+ "so_bai_sau_gop": 1449,
+ "so_loi": 16,
+ "seeds": [
+  {
+   "nguon": "s2",
+   "goc": "causalgym",
+   "nhom": "chinh",
+   "ma": "arXiv:2402.12560",
+   "paperId": "fecdcfec13a295b1810606baf9b74ba48db7933e",
+   "title": "CausalGym: Benchmarking causal interpretability methods on linguistic tasks",
+   "citationCount": 67,
+   "lay_duoc": 67
+  },
+  {
+   "nguon": "s2",
+   "goc": "ouyang",
+   "nhom": "chinh",
+   "ma": "arXiv:2411.17691",
+   "paperId": "1c90f0b7a284e509441f98a0e1c1ddbe6c4b5651",
+   "title": "Low-Bit Quantization Favors Undertrained LLMs: Scaling Laws for Quantized LLMs with 100T Training Tokens",
+   "citationCount": 24,
+   "lay_duoc": 24
+  },
+  {
+   "nguon": "s2",
+   "goc": "ouyang",
+   "nhom": "chinh",
+   "ma": "DOI:10.18653/v1/2025.acl-long.1555",
+   "paperId": "083809d711a9dc473051648a328e28949c992783",
+   "title": "Low-Bit Quantization Favors Undertrained LLMs",
+   "citationCount": 10,
+   "lay_duoc": 10
+  },
+  {
+   "nguon": "s2",
+   "goc": "geiger_das",
+   "nhom": "chinh",
+   "ma": "arXiv:2303.02536",
+   "paperId": "cb1b5d949a1d711b1bd3a2924e045ad3f893252c",
+   "title": "Finding Alignments Between Interpretable Causal Variables and Distributed Neural Representations",
+   "citationCount": 270,
+   "lay_duoc": 270
+  },
+  {
+   "nguon": "s2",
+   "goc": "armstrong",
+   "nhom": "phu",
+   "ma": "arXiv:2604.15167",
+   "paperId": "22c843e57115d260411849f424405552a6c33154",
+   "title": "When Flat Minima Fail: Characterizing INT4 Quantization Collapse After FP32 Convergence",
+   "citationCount": 0,
+   "lay_duoc": 0
+  },
+  {
+   "nguon": "openalex",
+   "goc": "causalgym",
+   "nhom": "chinh",
+   "ma": "10.48550/arXiv.2402.12560",
+   "openalex_id": "W4402671301",
+   "title": "CausalGym: Benchmarking causal interpretability methods on linguistic tasks",
+   "citationCount": 30,
+   "lay_duoc": 28
+  },
+  {
+   "nguon": "openalex",
+   "goc": "ouyang",
+   "nhom": "chinh",
+   "ma": "10.48550/arXiv.2411.17691",
+   "openalex_id": "W4405122476",
+   "title": "Low-Bit Quantization Favors Undertrained LLMs:Scaling Laws for Quantized LLMs with 100T Training Tokens",
+   "citationCount": 26,
+   "lay_duoc": 26
+  },
+  {
+   "nguon": "openalex",
+   "goc": "ouyang",
+   "nhom": "chinh",
+   "ma": "10.18653/v1/2025.acl-long.1555",
+   "openalex_id": "W4412889598",
+   "title": "Low-Bit Quantization Favors Undertrained LLMs",
+   "citationCount": 2,
+   "lay_duoc": 2
+  },
+  {
+   "nguon": "openalex",
+   "goc": "duan",
+   "nhom": "chinh",
+   "ma": "10.48550/arXiv.2606.03002",
+   "openalex_id": "W7163333518",
+   "title": "Perplexity Can Miss SAE Feature Damage Under Quantization",
+   "citationCount": 6,
+   "lay_duoc": 6
+  },
+  {
+   "nguon": "openalex",
+   "goc": "makarov",
+   "nhom": "chinh",
+   "ma": "10.48550/arXiv.2610.40055",
+   "openalex_id": "W7224861427",
+   "title": "One Vector or Many? Clustered Optimal-Transport Steering under Quantization",
+   "citationCount": 0,
+   "lay_duoc": 0
+  },
+  {
+   "nguon": "openalex",
+   "goc": "tanyel",
+   "nhom": "chinh",
+   "ma": "10.48550/arXiv.2611.05033",
+   "openalex_id": "W7225257150",
+   "title": "Whose Effect Is It? How Objectives Inflate Learned Subspace Interventions",
+   "citationCount": 0,
+   "lay_duoc": 0
+  },
+  {
+   "nguon": "openalex",
+   "goc": "geiger_das",
+   "nhom": "chinh",
+   "ma": "10.48550/arXiv.2303.02536",
+   "openalex_id": "W4323557327",
+   "title": "Finding Alignments Between Interpretable Causal Variables and Distributed Neural Representations",
+   "citationCount": 65,
+   "lay_duoc": 63
+  },
+  {
+   "nguon": "openalex",
+   "goc": "zhou",
+   "nhom": "chinh",
+   "ma": "10.48550/arXiv.2604.19884",
+   "openalex_id": "W7155386361",
+   "title": "From Signal Degradation to Computation Collapse: Uncovering the Two Failure Modes of LLM Quantization",
+   "citationCount": 6,
+   "lay_duoc": 6
+  },
+  {
+   "nguon": "openalex",
+   "goc": "zhou",
+   "nhom": "chinh",
+   "ma": "10.18653/v1/2026.findings-acl.1162",
+   "openalex_id": "W7166796595",
+   "title": "From Signal Degradation to Computation Collapse: Uncovering the Two Failure Modes of LLM Quantization",
+   "citationCount": 1,
+   "lay_duoc": 1
+  },
+  {
+   "nguon": "openalex",
+   "goc": "bhandari",
+   "nhom": "phu",
+   "ma": "10.48550/arXiv.2609.06473",
+   "openalex_id": "W7212081815",
+   "title": "Steering Under Compression: Dose-Response, Capability Cost, and Failure Asymmetry in Quantized LLMs",
+   "citationCount": 1,
+   "lay_duoc": 1
+  },
+  {
+   "nguon": "openalex",
+   "goc": "wu_margin",
+   "nhom": "phu",
+   "ma": "10.48550/arXiv.2608.06564",
+   "openalex_id": "W7202148329",
+   "title": "Which Decisions Low-Bit Quantization Breaks, and How to Predict Them",
+   "citationCount": 3,
+   "lay_duoc": 3
+  },
+  {
+   "nguon": "openalex",
+   "goc": "yao_circuit",
+   "nhom": "phu",
+   "ma": "10.48550/arXiv.2610.33299",
+   "openalex_id": "W7223924727",
+   "title": "The Emergence and Sparsification of a Syntactic Circuit",
+   "citationCount": 1,
+   "lay_duoc": 1
+  },
+  {
+   "nguon": "openalex",
+   "goc": "armstrong",
+   "nhom": "phu",
+   "ma": "10.48550/arXiv.2604.15167",
+   "openalex_id": "W7154720371",
+   "title": "When Flat Minima Fail: Characterizing INT4 Quantization Collapse After FP32 Convergence",
+   "citationCount": 0,
+   "lay_duoc": 0
+  }
+ ]
+}

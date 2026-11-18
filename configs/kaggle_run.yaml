@@ -3,21 +3,19 @@
 # Mỗi job chạy một notebook trong notebooks/ bằng papermill; "params" ghi đè ô parameters của notebook.
 # OUT_DIR và REPO_DIR do runner tự đặt, không ghi ở đây.
 #
-# Bản 16/11/2026: G1r — chạy lại G1 ở POS_MODE "repo" (tái hiện lỗi vị trí của repo gốc, sổ §8 điểm 9)
-# chỉ cho 2 tác vụ có cặp lệch vị trí: agr_sv_num_subj-relc (16%) và cleft (8%).
-# Mục đích: kiểm giả thuyết lệch so với bài gốc ở mean/PCA/k-means là do lỗi vị trí. Quy tắc D-16 đặt trước khi chạy (sổ §3).
-# Mọi thứ khác giống hệt G1 (commit d755410, run 20261113_0846_g1): split test, fp32, 9 phương pháp, dog-give, seed 0.
-# Ước thời gian [suy từ phút từng tác vụ của G1]: smoke khoảng 2 phút; 410m khoảng 40 phút; 1b khoảng 45 phút; tổng khoảng 1,5 giờ.
-# Cấu hình G1 (POS_MODE correct, 4 tác vụ) nằm ở commit d755410 nếu cần xem lại.
+# Bản 16/11/2026 (lần 2): KHÔNG CÓ JOB NÀO BẬT.
+# G1r đã chạy xong (run 20261116_0515_g1r, commit 243e926). Ba job dưới đây giữ nguyên nội dung nhưng tắt (enabled: false),
+# để lỡ bấm Save Version trên runner thì không chạy lại G1r (khoảng 1,5 giờ GPU).
+# Việc GPU kế tiếp (notebook 97) chạy từng ô, không qua runner (VIEC_CAN_LAM.md).
+# Job C1 sẽ được thêm khi có SPEC C1 và notebook 02.
 
-run_name: g1r               # thư mục kết quả là outputs/<ngày giờ>_g1r
-stop_on_error: true         # smoke lỗi thì bỏ các job sau
+run_name: none              # thư mục kết quả là outputs/<ngày giờ>_none nếu runner vẫn được chạy
+stop_on_error: true
 pip: []
 
 jobs:
-  # 1) Smoke: 2 tác vụ, dữ liệu rất nhỏ, 2 layer, POS_MODE repo.
   - name: g1r_smoke_410m
-    enabled: true
+    enabled: false
     notebook: notebooks/01_tai_lap_causalgym.ipynb
     params:
       MODEL: EleutherAI/pythia-410m
@@ -29,9 +27,8 @@ jobs:
       SAVE_DIRS: false
       MAX_HOURS: 0.5
 
-  # 2) 410m đầy đủ ở POS_MODE repo (mọi layer x mọi vùng, 9 phương pháp, dog-give).
   - name: g1r_410m
-    enabled: true
+    enabled: false
     notebook: notebooks/01_tai_lap_causalgym.ipynb
     params:
       MODEL: EleutherAI/pythia-410m
@@ -40,9 +37,8 @@ jobs:
       SAVE_DIRS: false
       MAX_HOURS: 1.5
 
-  # 3) 1b đầy đủ ở POS_MODE repo (fp32; bài gốc chạy 1b ở bfloat16).
   - name: g1r_1b
-    enabled: true
+    enabled: false
     notebook: notebooks/01_tai_lap_causalgym.ipynb
     params:
       MODEL: EleutherAI/pythia-1b

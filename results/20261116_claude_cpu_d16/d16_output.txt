@@ -1,0 +1,62 @@
+g1r_410m manip: {'none': 1467, 'dog-give': 1467}
+g1r_410m khop summary_methods.csv: odds va selectivity (sai lech < 1e-9)
+g1r_1b manip: {'none': 963, 'dog-give': 963}
+g1r_1b khop summary_methods.csv: odds va selectivity (sai lech < 1e-9)
+
+=== D-16: {mean, pca, kmeans} x 2 tac vu x 2 model, ti le minh/bai (odds) ===
+410m  agr_sv mean    bai  3.72 | G1  4.58 ( 1.23) | G1r  4.04 ( 1.09) TRONG
+410m  agr_sv pca     bai  0.29 | G1  0.98 ( 3.38) | G1r  0.26 ( 0.90) TRONG
+410m  agr_sv kmeans  bai  0.28 | G1  1.02 ( 3.64) | G1r  0.24 ( 0.85) TRONG
+410m  cleft  mean    bai  1.78 | G1  5.48 ( 3.08) | G1r  5.16 ( 2.90) ngoai
+410m  cleft  pca     bai  0.86 | G1  5.34 ( 6.21) | G1r  3.16 ( 3.67) ngoai
+410m  cleft  kmeans  bai  0.92 | G1  5.48 ( 5.96) | G1r  3.93 ( 4.27) ngoai
+1b    agr_sv mean    bai  4.24 | G1  5.57 ( 1.31) | G1r  5.06 ( 1.19) TRONG
+1b    agr_sv pca     bai  0.36 | G1  2.66 ( 7.39) | G1r  0.30 ( 0.83) TRONG
+1b    agr_sv kmeans  bai  0.39 | G1  2.82 ( 7.23) | G1r  0.35 ( 0.91) TRONG
+1b    cleft  mean    bai  1.62 | G1  5.78 ( 3.57) | G1r  5.55 ( 3.43) ngoai
+1b    cleft  pca     bai  0.25 | G1  5.65 (22.60) | G1r  3.38 (13.53) ngoai
+1b    cleft  kmeans  bai  0.43 | G1  5.78 (13.44) | G1r  5.13 (11.93) ngoai
+Trong [0,5; 2]: 6/12; trong [0,9; 1,1]: 3/12
+Nhan D-16: Khong giai thich duoc
+
+=== Moi phuong phap, ti le minh/bai: G1 -> G1r (odds | selectivity) ===
+-- 410m agr_sv_num_subj-relc
+   das     odds   1.12 ->   1.05   (G1r   5.20, bai  4.97) | sel   1.11 ->   1.01 (G1r   3.67, bai  3.64)
+   probe0  odds   1.07 ->   0.96   (G1r   4.14, bai  4.32) | sel   1.08 ->   0.96 (G1r   5.39, bai  5.63)
+   probe1  odds   1.10 ->   0.97   (G1r   4.05, bai  4.19) | sel   1.10 ->   0.97 (G1r   5.27, bai  5.45)
+   mean    odds   1.23 ->   1.09   (G1r   4.04, bai  3.72) | sel   1.24 ->   1.08 (G1r   5.25, bai  4.84)
+   pca     odds   3.38 ->   0.90   (G1r   0.26, bai  0.29) | sel   3.27 ->   0.82 (G1r   0.33, bai  0.40)
+   kmeans  odds   3.64 ->   0.85   (G1r   0.24, bai  0.28) | sel   3.66 ->   0.82 (G1r   0.31, bai  0.38)
+   lda     odds   0.09 ->   0.88   (G1r   1.65, bai  1.88) | sel   0.09 ->   0.88 (G1r   2.13, bai  2.43)
+   random  odds   0.00 ->   0.13   (G1r   0.00, bai  0.03) | sel   0.33 ->   0.31 (G1r   0.01, bai  0.03)
+   vanilla odds   1.07 ->   1.01   (G1r   4.45, bai  4.42) | sel   1.10 ->   1.01 (G1r   5.55, bai  5.52)
+-- 410m cleft
+   das     odds   0.99 ->   0.96   (G1r  13.83, bai 14.46) | sel   0.94 ->   0.92 (G1r   6.39, bai  6.91)
+   probe0  odds   1.00 ->   0.93   (G1r   5.12, bai  5.53) | sel   1.01 ->   0.94 (G1r  11.38, bai 12.09)
+   probe1  odds   1.13 ->   1.07   (G1r   5.16, bai  4.84) | sel   1.16 ->   1.09 (G1r  11.48, bai 10.55)
+   mean    odds   3.08 ->   2.90   (G1r   5.16, bai  1.78) | sel   3.06 ->   2.88 (G1r  11.48, bai  3.99)
+   pca     odds   6.21 ->   3.67   (G1r   3.16, bai  0.86) | sel   5.91 ->   3.57 (G1r   7.21, bai  2.02)
+   kmeans  odds   5.96 ->   4.27   (G1r   3.93, bai  0.92) | sel   5.73 ->   4.17 (G1r   8.88, bai  2.13)
+   lda     odds   3.40 ->   3.46   (G1r   0.17, bai  0.05) | sel   3.75 ->   3.27 (G1r   0.26, bai  0.08)
+   random  odds   0.50 ->   0.33   (G1r   0.01, bai  0.02) | sel   0.50 ->   0.57 (G1r   0.01, bai  0.02)
+   vanilla odds   1.02 ->   0.99   (G1r   5.75, bai  5.79) | sel   1.03 ->   1.00 (G1r  12.85, bai 12.91)
+-- 1b agr_sv_num_subj-relc
+   das     odds   1.06 ->   1.02   (G1r   6.74, bai  6.62) | sel   1.07 ->   1.00 (G1r   4.14, bai  4.13)
+   probe0  odds   1.07 ->   0.97   (G1r   5.10, bai  5.23) | sel   1.07 ->   0.97 (G1r   6.78, bai  6.97)
+   probe1  odds   1.12 ->   1.02   (G1r   5.07, bai  4.98) | sel   1.13 ->   1.02 (G1r   6.74, bai  6.59)
+   mean    odds   1.31 ->   1.19   (G1r   5.06, bai  4.24) | sel   1.33 ->   1.20 (G1r   6.72, bai  5.60)
+   pca     odds   7.39 ->   0.83   (G1r   0.30, bai  0.36) | sel   8.38 ->   0.85 (G1r   0.36, bai  0.42)
+   kmeans  odds   7.23 ->   0.91   (G1r   0.35, bai  0.39) | sel   8.09 ->   0.93 (G1r   0.43, bai  0.46)
+   lda     odds   0.19 ->   1.02   (G1r   1.42, bai  1.40) | sel   0.21 ->   1.02 (G1r   1.78, bai  1.75)
+   random  odds   0.00 ->   0.15   (G1r   0.00, bai  0.01) | sel   0.00 ->   0.30 (G1r   0.00, bai  0.01)
+   vanilla odds   1.06 ->   1.01   (G1r   5.56, bai  5.51) | sel   1.06 ->   1.01 (G1r   7.39, bai  7.32)
+-- 1b cleft
+   das     odds   1.02 ->   0.98   (G1r  15.24, bai 15.56) | sel   1.04 ->   0.99 (G1r   4.02, bai  4.05)
+   probe0  odds   1.04 ->   1.00   (G1r   5.56, bai  5.59) | sel   1.04 ->   1.00 (G1r  11.33, bai 11.38)
+   probe1  odds   1.54 ->   1.48   (G1r   5.55, bai  3.76) | sel   1.55 ->   1.48 (G1r  11.31, bai  7.64)
+   mean    odds   3.57 ->   3.43   (G1r   5.55, bai  1.62) | sel   3.51 ->   3.36 (G1r  11.29, bai  3.36)
+   pca     odds  22.60 ->  13.53   (G1r   3.38, bai  0.25) | sel  19.91 ->  11.78 (G1r   6.83, bai  0.58)
+   kmeans  odds  13.44 ->  11.93   (G1r   5.13, bai  0.43) | sel  12.30 ->  10.82 (G1r  10.39, bai  0.96)
+   lda     odds   1.81 ->   0.09   (G1r   0.01, bai  0.16) | sel   1.21 ->   0.10 (G1r   0.03, bai  0.33)
+   random  odds   0.00 ->   0.35   (G1r   0.00, bai  0.01) | sel   0.33 ->   0.23 (G1r   0.01, bai  0.03)
+   vanilla odds   1.01 ->   0.99   (G1r   5.97, bai  6.04) | sel   1.02 ->   0.99 (G1r  12.18, bai 12.31)

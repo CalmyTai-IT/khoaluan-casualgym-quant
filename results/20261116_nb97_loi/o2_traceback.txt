@@ -1,0 +1,189 @@
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+/usr/local/lib/python3.13/dist-packages/transformers/utils/import_utils.py in __getattr__(self, name)
+   2599             try:
+-> 2600                 module = self._get_module(self._class_to_module[name])
+   2601                 value = getattr(module, name)
+
+/usr/local/lib/python3.13/dist-packages/transformers/utils/import_utils.py in _get_module(self, module_name)
+   2830         except Exception as e:
+-> 2831             raise e
+   2832 
+
+/usr/local/lib/python3.13/dist-packages/transformers/utils/import_utils.py in _get_module(self, module_name)
+   2828         try:
+-> 2829             return importlib.import_module("." + module_name, self.__name__)
+   2830         except Exception as e:
+
+/usr/lib/python3.13/importlib/__init__.py in import_module(name, package)
+     87             level += 1
+---> 88     return _bootstrap._gcd_import(name[level:], package, level)
+     89 
+
+/usr/lib/python3.13/importlib/_bootstrap.py in _gcd_import(name, package, level)
+
+/usr/lib/python3.13/importlib/_bootstrap.py in _find_and_load(name, import_)
+
+/usr/lib/python3.13/importlib/_bootstrap.py in _find_and_load_unlocked(name, import_)
+
+/usr/lib/python3.13/importlib/_bootstrap.py in _load_unlocked(spec)
+
+/usr/lib/python3.13/importlib/_bootstrap_external.py in exec_module(self, module)
+
+/usr/lib/python3.13/importlib/_bootstrap.py in _call_with_frames_removed(f, *args, **kwds)
+
+/usr/local/lib/python3.13/dist-packages/transformers/generation/utils.py in <module>
+     59 from ..utils.generic import is_flash_attention_requested
+---> 60 from .candidate_generator import (
+     61     AssistantVocabTranslatorCache,
+
+/usr/local/lib/python3.13/dist-packages/transformers/generation/candidate_generator.py in <module>
+     30 if is_sklearn_available():
+---> 31     from sklearn.metrics import roc_curve
+     32 
+
+/usr/local/lib/python3.13/dist-packages/sklearn/__init__.py in <module>
+     72 )
+---> 73 from .base import clone  # noqa: E402
+     74 from .utils._show_versions import show_versions  # noqa: E402
+
+/usr/local/lib/python3.13/dist-packages/sklearn/base.py in <module>
+     18 from .exceptions import InconsistentVersionWarning
+---> 19 from .utils._estimator_html_repr import _HTMLDocumentationLinkMixin, estimator_html_repr
+     20 from .utils._metadata_requests import _MetadataRequester, _routing_enabled
+
+/usr/local/lib/python3.13/dist-packages/sklearn/utils/__init__.py in <module>
+     14 from ._bunch import Bunch
+---> 15 from ._chunking import gen_batches, gen_even_slices
+     16 from ._estimator_html_repr import estimator_html_repr
+
+/usr/local/lib/python3.13/dist-packages/sklearn/utils/_chunking.py in <module>
+     10 from .._config import get_config
+---> 11 from ._param_validation import Interval, validate_params
+     12 
+
+/usr/local/lib/python3.13/dist-packages/sklearn/utils/_param_validation.py in <module>
+     13 import numpy as np
+---> 14 from scipy.sparse import csr_matrix, issparse
+     15 
+
+/usr/local/lib/python3.13/dist-packages/scipy/sparse/__init__.py in <module>
+    303 
+--> 304 from ._base import *
+    305 from ._csr import *
+
+/usr/local/lib/python3.13/dist-packages/scipy/sparse/_base.py in <module>
+      7 
+----> 8 from ._sputils import (asmatrix, check_reshape_kwargs, check_shape,
+      9                        get_sum_dtype, isdense, isscalarlike, _todata,
+
+/usr/local/lib/python3.13/dist-packages/scipy/sparse/_sputils.py in <module>
+      9 import scipy.sparse as sp
+---> 10 from scipy._lib._util import np_long, np_ulong
+     11 
+
+/usr/local/lib/python3.13/dist-packages/scipy/_lib/_util.py in <module>
+     13 import numpy as np
+---> 14 from scipy._lib._array_api import (Array, array_namespace, is_lazy_array,
+     15                                    is_numpy, is_marray, xp_result_device,
+
+/usr/local/lib/python3.13/dist-packages/scipy/_lib/_array_api.py in <module>
+     24 from scipy._lib import array_api_compat
+---> 25 from scipy._lib.array_api_compat import (
+     26     is_array_api_obj,
+
+/usr/local/lib/python3.13/dist-packages/scipy/_lib/array_api_compat/numpy/__init__.py in <module>
+      3 
+----> 4 from numpy import *  # noqa: F403  # pyright: ignore[reportWildcardImportFromLibrary]
+      5 
+
+/usr/local/lib/python3.13/dist-packages/numpy/char/__init__.py in <module>
+----> 1 from numpy._core.defchararray import __all__, __doc__
+      2 from numpy._core.defchararray import *
+
+/usr/local/lib/python3.13/dist-packages/numpy/_core/defchararray.py in <module>
+     25 from numpy._core import overrides
+---> 26 from numpy.strings import *
+     27 from numpy.strings import (
+
+/usr/local/lib/python3.13/dist-packages/numpy/strings/__init__.py in <module>
+----> 1 from numpy._core.strings import __all__, __doc__
+      2 from numpy._core.strings import *
+
+/usr/local/lib/python3.13/dist-packages/numpy/_core/strings.py in <module>
+     60 
+---> 61 _override___module__()
+     62 
+
+/usr/local/lib/python3.13/dist-packages/numpy/_core/strings.py in _override___module__()
+     56     ]:
+---> 57         ufunc.__module__ = "numpy.strings"
+     58         ufunc.__qualname__ = ufunc.__name__
+
+AttributeError: 'numpy.ufunc' object has no attribute '__module__' and no __dict__ for setting new attributes
+
+The above exception was the direct cause of the following exception:
+
+ModuleNotFoundError                       Traceback (most recent call last)
+/usr/local/lib/python3.13/dist-packages/transformers/utils/import_utils.py in __getattr__(self, name)
+   2599             try:
+-> 2600                 module = self._get_module(self._class_to_module[name])
+   2601                 value = getattr(module, name)
+
+/usr/local/lib/python3.13/dist-packages/transformers/utils/import_utils.py in _get_module(self, module_name)
+   2830         except Exception as e:
+-> 2831             raise e
+   2832 
+
+/usr/local/lib/python3.13/dist-packages/transformers/utils/import_utils.py in _get_module(self, module_name)
+   2828         try:
+-> 2829             return importlib.import_module("." + module_name, self.__name__)
+   2830         except Exception as e:
+
+/usr/lib/python3.13/importlib/__init__.py in import_module(name, package)
+     87             level += 1
+---> 88     return _bootstrap._gcd_import(name[level:], package, level)
+     89 
+
+/usr/lib/python3.13/importlib/_bootstrap.py in _gcd_import(name, package, level)
+
+/usr/lib/python3.13/importlib/_bootstrap.py in _find_and_load(name, import_)
+
+/usr/lib/python3.13/importlib/_bootstrap.py in _find_and_load_unlocked(name, import_)
+
+/usr/lib/python3.13/importlib/_bootstrap.py in _load_unlocked(spec)
+
+/usr/lib/python3.13/importlib/_bootstrap_external.py in exec_module(self, module)
+
+/usr/lib/python3.13/importlib/_bootstrap.py in _call_with_frames_removed(f, *args, **kwds)
+
+/usr/local/lib/python3.13/dist-packages/transformers/models/gpt_neox/modeling_gpt_neox.py in <module>
+     13 from ...cache_utils import Cache, DynamicCache
+---> 14 from ...generation import GenerationMixin
+     15 from ...masking_utils import create_causal_mask
+
+/usr/local/lib/python3.13/dist-packages/transformers/utils/import_utils.py in __getattr__(self, name)
+   2687                     logger.debug(f"Original import error for '{name}': {e}")
+-> 2688                     raise ModuleNotFoundError(import_error_message) from e
+   2689 
+
+ModuleNotFoundError: Could not import module 'GenerationMixin'. Are this object's requirements defined correctly? Set the logging verbosity to DEBUG for the original import error.
+
+The above exception was the direct cause of the following exception:
+
+ModuleNotFoundError                       Traceback (most recent call last)
+/tmp/ipykernel_16/2100408245.py in <cell line: 0>()
+----> 1 from transformers import GPTNeoXConfig, GPTNeoXForCausalLM
+      2 _m = GPTNeoXForCausalLM(GPTNeoXConfig(vocab_size=64, hidden_size=16, num_hidden_layers=1, num_attention_heads=2, intermediate_size=32))
+      3 head_names = [n for n, _ in _m.named_parameters() if "layers" not in n]
+      4 del _m
+      5 from gptqmodel.models.definitions.gpt_neox import GPTNeoXQModel
+
+/usr/local/lib/python3.13/dist-packages/transformers/utils/import_utils.py in __getattr__(self, name)
+   2686                 else:
+   2687                     logger.debug(f"Original import error for '{name}': {e}")
+-> 2688                     raise ModuleNotFoundError(import_error_message) from e
+   2689 
+   2690         elif name in self._modules:
+
+ModuleNotFoundError: Could not import module 'GPTNeoXForCausalLM'. Are this object's requirements defined correctly? Set the logging verbosity to DEBUG for the original import error.

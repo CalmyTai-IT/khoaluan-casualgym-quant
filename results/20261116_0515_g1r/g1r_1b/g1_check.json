@@ -1,0 +1,149 @@
+{
+ "model": "pythia-1b",
+ "tasks": [
+  "agr_sv_num_subj-relc",
+  "cleft"
+ ],
+ "pos_mode": "repo",
+ "eval_split": "test",
+ "order": {
+  "methods": [
+   "vanilla",
+   "das",
+   "probe0",
+   "probe1",
+   "mean",
+   "pca",
+   "kmeans",
+   "lda",
+   "random"
+  ],
+  "ours": [
+   5.760774250049144,
+   10.98940358735621,
+   5.329941331148147,
+   5.31189806997776,
+   5.303666054010391,
+   1.840402023680508,
+   2.7427100571244956,
+   0.7195720749348402,
+   0.0025077738612890245
+  ],
+  "paper": [
+   5.775,
+   11.09,
+   5.41,
+   4.37,
+   2.93,
+   0.305,
+   0.41000000000000003,
+   0.7799999999999999,
+   0.01
+  ],
+  "kendall_tau": 0.8888888888888888,
+  "das_top": true
+ },
+ "magnitude": {
+  "pairs": [
+   {
+    "task": "agr_sv_num_subj-relc",
+    "method": "das",
+    "ours": 6.7436488017439835,
+    "paper": 6.62,
+    "ratio": 1.0186780667286983,
+    "within": true
+   },
+   {
+    "task": "agr_sv_num_subj-relc",
+    "method": "probe",
+    "ours": 5.097464822530746,
+    "paper": 5.23,
+    "ratio": 0.9746586658758596,
+    "within": true
+   },
+   {
+    "task": "agr_sv_num_subj-relc",
+    "method": "mean",
+    "ours": 5.056936352550983,
+    "paper": 4.24,
+    "ratio": 1.1926736680544772,
+    "within": true
+   },
+   {
+    "task": "agr_sv_num_subj-relc",
+    "method": "vanilla",
+    "ours": 5.5552242672815915,
+    "paper": 5.51,
+    "ratio": 1.008207671012993,
+    "within": true
+   },
+   {
+    "task": "cleft",
+    "method": "das",
+    "ours": 15.235158372968435,
+    "paper": 15.56,
+    "ratio": 0.9791232887511847,
+    "within": true
+   },
+   {
+    "task": "cleft",
+    "method": "probe",
+    "ours": 5.562417839765549,
+    "paper": 5.59,
+    "ratio": 0.9950658031780946,
+    "within": true
+   },
+   {
+    "task": "cleft",
+    "method": "mean",
+    "ours": 5.550395755469799,
+    "paper": 1.62,
+    "ratio": 3.4261702194258015,
+    "within": false
+   },
+   {
+    "task": "cleft",
+    "method": "vanilla",
+    "ours": 5.966324232816696,
+    "paper": 6.04,
+    "ratio": 0.9878020253007774,
+    "within": true
+   }
+  ],
+  "n_within": 7,
+  "n": 8
+ },
+ "accuracy": [
+  {
+   "task": "agr_sv_num_subj-relc",
+   "ours": 1.0,
+   "paper": 1.0,
+   "abs_diff": 0.0
+  },
+  {
+   "task": "cleft",
+   "ours": 0.97,
+   "paper": 0.97,
+   "abs_diff": 0.0
+  }
+ ],
+ "position": [
+  {
+   "task": "agr_sv_num_subj-relc",
+   "diff_region": 1,
+   "last_region": 5,
+   "arrival_diff": 0,
+   "arrival_last": 13,
+   "ok": true
+  },
+  {
+   "task": "cleft",
+   "diff_region": 2,
+   "last_region": 3,
+   "arrival_diff": 0,
+   "arrival_last": 3,
+   "ok": true
+  }
+ ],
+ "hours": 0.76
+}
