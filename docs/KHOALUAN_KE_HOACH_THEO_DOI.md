@@ -118,7 +118,7 @@
 - [x] (TV-A, 16/11) Tải PDF Tanyel & Ayvaz (2611.05033), Makarov (2610.40055) lên Project
 - [x] (TV-A dán, Claude viết, 16/11 lần 2) Lời duyệt và nhận xét lần 3 của thầy → `NHAN_XET_GVHD_LAN3.md`; D-17
 - [ ] (TV-A, 16–17/11) Giải nén zip phiên 16/11 lần 2 vào repo, commit, push; cập nhật KB theo bảng "Cho KB"; sửa ô Instructions của Project (dòng MVP theo D-17, "sổ dự án v0.8", "Tự cập nhật sổ dự án (QT-44)")
-- [ ] (TV-A hoặc TV-B, không gấp, trước SPEC C1) Chạy lại notebook 97 trên GPU T4, khởi động lại kernel sau ô 1; mang `kiem_gptqmodel.jsonl` + ảnh ô 1 về; chốt D-15
+- [ ] (TV-A hoặc TV-B, không gấp, trước SPEC C1) Chạy lại notebook 97 trên GPU T4, khởi động lại kernel sau ô 1; mang `kiem_gptqmodel.jsonl` + ảnh ô 1 về; chốt D-15. **18/11:** ô 3 lỗi `HfUriError` vì `huggingface_hub` mới không nhận tên dataset `"wikitext"`; sửa tạm trên Kaggle thành `"Salesforce/wikitext"` (cùng dữ liệu). Còn phải sửa trong `notebooks/97_kiem_gptqmodel.ipynb` của repo, ở mọi chỗ gọi `load_dataset("wikitext", ...)` (QT-01); Claude làm khi đọc được repo
 - [ ] (Tuỳ chọn, TV-A) Tải PDF Varshney (arXiv 2609.30275) lên Project; Claude đọc toàn văn trước đề cương
 - [ ] (TV-A + Claude, phiên kế tiếp) Phiên tìm hiểu (D-18); trong đó chạy notebook 01b với thư mục G1r trên CPU để kiểm nhãn D-16 (QT-32)
 - [ ] (Claude, sau phiên tìm hiểu) SPEC C1/C2 (chốt D-11, D-12, D-15, biên tương đương, ngưỡng R; cách dùng `cleft` trong C1, §10 ghi chú 4; ngân sách GPU theo thời gian G1 và D-17) và notebook 02
